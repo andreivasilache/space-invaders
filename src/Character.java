@@ -1,12 +1,13 @@
+import entities.Coordinates;
+
 import javax.swing.*;
 
 public class Character extends Coordinates {
-    private int width, height;
-    private String imgSource;
-    private Coordinates coordinates;
+    public int width, height,x,y;
+    public String imgSource;
     private JFrame frameInstance;
 
-    private AnimationPane animation;
+//    private AnimationPane animation;
 
     boolean isVisible;
 
@@ -19,30 +20,30 @@ public class Character extends Coordinates {
         this.isVisible = isVisible;
         this.imgSource = imgSource;
         this.frameInstance = frameInstance;
-        this.animation = new AnimationPane(imgSource,width, height,x, y);
+//        this.animation = new AnimationPane(imgSource,width, height,x, y);
 
-        frameInstance.add(this.animation);
-        frameInstance.setVisible(true);
+//        frameInstance.add(this.animation);
+//        frameInstance.setVisible(true);
     }
 
-    public boolean areCoordonatesValid(int cooridnate, String coordinateName){
-        return cooridnate > 0 && (coordinateName.contentEquals("x")  && (cooridnate < frameInstance.getWidth()- width)
-                || coordinateName.contentEquals("y") && cooridnate < frameInstance.getHeight());
+    public boolean areCoordinatesValid(int coordinate, String coordinateName){
+        return coordinate > 0 && (coordinateName.contentEquals("x")  && (coordinate < frameInstance.getWidth()- width)
+                || coordinateName.contentEquals("y") && coordinate < frameInstance.getHeight());
     }
 
     public void moveLeft(){
         int newCoordinates = getX() - 10;
-        if(areCoordonatesValid(newCoordinates, "x")){
+        if(areCoordinatesValid(newCoordinates, "x")){
             setX(newCoordinates);
-            animation.updateX(newCoordinates);
+//            animation.updateX(newCoordinates);
         }
     }
 
     public void moveRight(){
         int newCoordinates = getX() + 10;
-        if(areCoordonatesValid(newCoordinates, "x")){
+        if(areCoordinatesValid(newCoordinates, "x")){
             setX(newCoordinates);
-            animation.updateX(newCoordinates);
+//            animation.updateX(newCoordinates);
         }
     }
 
