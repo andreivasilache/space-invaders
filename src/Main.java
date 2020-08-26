@@ -8,7 +8,7 @@ import java.util.TimerTask;
 public class Main {
     public static void main(String[] args){
         JFrame frameInstance;
-        JPanel gameInstance;
+
         int width = 900;
         int height = 600;
         int entityWidth = 50;
@@ -18,27 +18,29 @@ public class Main {
         boardUI.initBoard();
         frameInstance = boardUI.getFrame();
 
-//        Character shooter = new Character(entityWidth, entityHeight, width/2, height - 100, true, "assets/shooter.jpg", frameInstance);
-        Character[] enemies = new Character[2];
-        enemies[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance);
-        for(int i = 1; i<2; i++){
-            enemies[i] = new Character(entityWidth, entityHeight, width/2 + entityWidth, height /2, true, "assets/enemy.jpg", frameInstance);
+        Character[] entities = new Character[11];
+        entities[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance);
+
+        for(int i = 1; i<=10; i++){
+            entities[i] = new Character(entityWidth, entityHeight, width/3 + (entityWidth * i) , height /2, true, "assets/enemy.jpg", frameInstance);
         }
 
-        Animator animator = new Animator(enemies);
+        Animator animator = new Animator(entities);
+        frameInstance.add(animator);
+        frameInstance.setVisible(true);
 
-        Timer time = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-//                Animator animator = new Animator(enemies);
-//                animator.repaint();
-//                System.out.println("done");
-                frameInstance.add(animator);
-                frameInstance.setVisible(true);
-            }
-        });
-        time.start();
+//        Timer time = new Timer(60, new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent actionEvent) {
+////                Animator animator = new Animator(enemies);
+////                animator.repaint();
+////                System.out.println("done");
+////                frameInstance.repaint();
+//            }
+//        });
+//        time.start();
 
+        Character player = entities[0];
         frameInstance.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
@@ -46,10 +48,10 @@ public class Main {
                 int keyCode = event.getKeyCode();
 
                 if (keyCode == event.VK_LEFT || keyCode == event.VK_A) {
-//                    shooter.moveLeft();
+                    player.moveLeft();
                 }
                 if (keyCode == event.VK_RIGHT || keyCode == event.VK_D) {
-//                    shooter.moveRight();
+                    player.moveRight();
                 }
                 if (keyCode == event.VK_UP || keyCode == event.VK_W) {
                     System.out.println("Up");

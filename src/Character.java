@@ -1,13 +1,16 @@
 import entities.Coordinates;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class Character extends Coordinates {
     public int width, height,x,y;
     public String imgSource;
     private JFrame frameInstance;
-
-//    private AnimationPane animation;
+    public Image processedImg;
 
     boolean isVisible;
 
@@ -20,10 +23,14 @@ public class Character extends Coordinates {
         this.isVisible = isVisible;
         this.imgSource = imgSource;
         this.frameInstance = frameInstance;
-//        this.animation = new AnimationPane(imgSource,width, height,x, y);
 
-//        frameInstance.add(this.animation);
-//        frameInstance.setVisible(true);
+        try{
+            Image img = ImageIO.read(new File(imgSource));
+            processedImg = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public boolean areCoordinatesValid(int coordinate, String coordinateName){
@@ -35,7 +42,6 @@ public class Character extends Coordinates {
         int newCoordinates = getX() - 10;
         if(areCoordinatesValid(newCoordinates, "x")){
             setX(newCoordinates);
-//            animation.updateX(newCoordinates);
         }
     }
 
@@ -43,11 +49,10 @@ public class Character extends Coordinates {
         int newCoordinates = getX() + 10;
         if(areCoordinatesValid(newCoordinates, "x")){
             setX(newCoordinates);
-//            animation.updateX(newCoordinates);
         }
     }
 
-    public String getImgSource(){
-        return this.imgSource;
+    public Image getProcessedImg(){
+        return this.processedImg;
     }
 }
