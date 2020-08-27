@@ -1,3 +1,5 @@
+import entities.LevelsENUM;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,21 +11,21 @@ public class Main {
     public static void main(String[] args){
         JFrame frameInstance;
 
-        int width = 900;
+        int width = 850;
         int height = 600;
-        int entityWidth = 50;
-        int entityHeight = 50;
+        int entityWidth = 25;
+        int entityHeight = 25;
+        int numberOfEnemies = 55;
+        Character[] entities = new Character[numberOfEnemies + 1];
 
         BoardUI boardUI = new BoardUI("Space Invaders", width, height);
         boardUI.initBoard();
         frameInstance = boardUI.getFrame();
 
-        Character[] entities = new Character[11];
-        entities[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance);
+        Enemies enemyBots = new Enemies(entityWidth, entityHeight, 1, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance);
 
-        for(int i = 1; i<=10; i++){
-            entities[i] = new Character(entityWidth, entityHeight, width/3 + (entityWidth * i) , height /2, true, "assets/enemy.jpg", frameInstance);
-        }
+        entities[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance);
+        enemyBots.initEnemies(entities);
 
         Animator animator = new Animator(entities);
         frameInstance.add(animator);
