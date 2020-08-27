@@ -7,10 +7,11 @@ import java.io.File;
 import java.io.IOException;
 
 public class Character extends Coordinates {
-    public int width, height,x,y;
+    private int width, height;
     public String imgSource;
     private JFrame frameInstance;
-    public Image processedImg;
+    private Image processedImg;
+
 
     boolean isVisible;
 
@@ -33,6 +34,15 @@ public class Character extends Coordinates {
         }
     }
 
+    public Character(int width, int height,  boolean isVisible,  String imgSource){
+        // initialize with 0, the values will be updated later, during runtime.
+        super(0, 0);
+        this.width = width;
+        this.height= height;
+        this.isVisible = isVisible;
+        this.imgSource = imgSource;
+    }
+
     public boolean areCoordinatesValid(int coordinate, String coordinateName){
         return coordinate > 0 && (coordinateName.contentEquals("x")  && (coordinate < frameInstance.getWidth()- width)
                 || coordinateName.contentEquals("y") && coordinate < frameInstance.getHeight());
@@ -51,6 +61,15 @@ public class Character extends Coordinates {
             setX(newCoordinates);
         }
     }
+
+    public int getWidth(){
+        return  this.width;
+    }
+
+    public int getHeight(){
+        return this.height;
+    }
+
 
     public Image getProcessedImg(){
         return this.processedImg;

@@ -1,21 +1,28 @@
+//import javax.swing.*;
+
+import entities.LevelsENUM;
+
 import javax.swing.*;
 
-//public class Enemies {
-//    int speed;
-//    int numberOfEnemies;
-//
-//    public Enemies(int speed, int numberOfEnemies) {
-//        this.numberOfEnemies = numberOfEnemies;
-//        this.speed = speed;
-//    }
-//    Character[] enemies = new Character[numberOfEnemies + 1];
-//
-//
-//    public Character[] initEnemies() {
-//        for(int i = 1; i<=10; i++){
-//            enemies[i] = new Character(entityWidth, entityHeight, width/2 + entityWidth, height /2, true, "assets/enemy.jpg", frameInstance);
-//        }
-//        return enemies;
-//    }
-//}
-//
+public class Enemies extends  Character {
+   private int speed;
+    private int numberOfEnemies;
+    LevelsENUM.LEVELS level;
+
+    public Enemies(int width, int height, int speed, int numberOfEnemies, LevelsENUM.LEVELS level) {
+        super(width, height, true, "assets/enemy.jpg");
+
+        this.numberOfEnemies = numberOfEnemies;
+        this.speed = speed;
+        this.level = level;
+    }
+
+    Character[] enemies = new Character[numberOfEnemies];
+
+    public Character[] initEnemies() {
+        for(int i = 1; i<=10; i++){
+            enemies[i] = new Character(getWidth(), getHeight(),  true, "assets/enemy.jpg");
+        }
+        return enemies;
+    }
+}
