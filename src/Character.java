@@ -16,8 +16,6 @@ public class Character extends Coordinates {
 
     public Character(int width, int height, int x, int y, boolean isVisible, String imgSource, JFrame frameInstance, int lifes){
         super(x, y);
-        setX(x);
-        setY(y);
 
         this.width = width;
         this.height= height;
@@ -46,9 +44,6 @@ public class Character extends Coordinates {
     }
 
     public boolean areCoordinatesValid(int coordinate, String coordinateName){
-//        System.out.println("coordinate: " + Math.ceil(coordinate));
-//        System.out.println("width:" + Math.ceil(frameInstance.getWidth()));
-
         return coordinate >= 0 && (coordinateName.contentEquals("x")  && (coordinate <= frameInstance.getWidth() - width)
                 || coordinateName.contentEquals("y") && coordinate <= frameInstance.getHeight());
     }

@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
 public class Main {
     public static void main(String[] args){
         JFrame frameInstance;
@@ -18,6 +17,7 @@ public class Main {
 
         Core gameCore = new Core(frameInstance);
         gameCore.initAllElements();
+
         Animator animator = new Animator(gameCore);
         frameInstance.add(animator);
         frameInstance.setVisible(true);

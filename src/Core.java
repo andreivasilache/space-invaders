@@ -20,7 +20,6 @@ public class Core {
     public Core(JFrame frameInstance){
         this.frameInstance = frameInstance;
         enemyBots = new Enemies(entityWidth, entityHeight, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance);
-//        this.initAllElements();
     }
 
     public void initAllElements(){

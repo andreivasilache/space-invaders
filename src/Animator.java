@@ -1,11 +1,6 @@
-import entities.UIEntitiesENUM;
-
 import javax.swing.*;
 import java.awt.*;
-import java.util.HashMap;
 import java.util.List;
-
-// https://stackoverflow.com/questions/14432816/how-to-move-an-image-animation
 
 public class Animator extends JPanel {
     private Core gameCore;
