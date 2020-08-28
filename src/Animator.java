@@ -15,8 +15,10 @@ public class Animator extends JPanel {
         super.paintComponent(g);
 
         for(int i=0; i<this.toBeRendered.length; i++){
-            g.drawImage( this.toBeRendered[i].getProcessedImg(), this.toBeRendered[i].getX(), this.toBeRendered[i].getY(), this.toBeRendered[i].getWidth(), this.toBeRendered[i].getHeight(), null);
-            repaint(this.toBeRendered[i].getX(), this.toBeRendered[i].getY(), this.toBeRendered[i].getWidth(), this.toBeRendered[i].getHeight());
+            if(this.toBeRendered[i].isVisible){
+                g.drawImage(this.toBeRendered[i].getProcessedImg(), this.toBeRendered[i].getX(), this.toBeRendered[i].getY(), this.toBeRendered[i].getWidth(), this.toBeRendered[i].getHeight(), null);
+                repaint(this.toBeRendered[i].getX(), this.toBeRendered[i].getY(), this.toBeRendered[i].getWidth(), this.toBeRendered[i].getHeight());
+            }
         }
     }
 }

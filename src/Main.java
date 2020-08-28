@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.TimerTask;
 
 public class Main {
     public static void main(String[] args){
@@ -16,31 +15,29 @@ public class Main {
         int entityWidth = 25;
         int entityHeight = 25;
         int numberOfEnemies = 55;
+
         Character[] entities = new Character[numberOfEnemies + 1];
 
         BoardUI boardUI = new BoardUI("Space Invaders", width, height);
         boardUI.initBoard();
         frameInstance = boardUI.getFrame();
 
-        Enemies enemyBots = new Enemies(entityWidth, entityHeight, 1, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance);
+        Enemies enemyBots = new Enemies(entityWidth, entityHeight, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance);
 
-        entities[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance);
+        entities[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance, 3);
         enemyBots.initEnemies(entities);
 
         Animator animator = new Animator(entities);
         frameInstance.add(animator);
         frameInstance.setVisible(true);
 
-//        Timer time = new Timer(60, new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-////                Animator animator = new Animator(enemies);
-////                animator.repaint();
-////                System.out.println("done");
-////                frameInstance.repaint();
-//            }
-//        });
-//        time.start();
+        Timer time = new Timer(100, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                 enemyBots.moveAllEnemies();
+            }
+        });
+        time.start();
 
         Character player = entities[0];
         frameInstance.addKeyListener(new KeyAdapter() {

@@ -7,19 +7,21 @@ import java.io.File;
 import java.io.IOException;
 
 public class Character extends Coordinates {
-    private int width, height;
+    public int width, height;
     public String imgSource;
     private JFrame frameInstance;
     private Image processedImg;
-
-
+    private int lifes;
     boolean isVisible;
 
-    public Character(int width, int height, int x, int y, boolean isVisible, String imgSource, JFrame frameInstance){
+    public Character(int width, int height, int x, int y, boolean isVisible, String imgSource, JFrame frameInstance, int lifes){
         super(x, y);
+        setX(x);
+        setY(y);
 
         this.width = width;
         this.height= height;
+        this.lifes = lifes;
 
         this.isVisible = isVisible;
         this.imgSource = imgSource;
@@ -44,21 +46,24 @@ public class Character extends Coordinates {
     }
 
     public boolean areCoordinatesValid(int coordinate, String coordinateName){
-        return coordinate > 0 && (coordinateName.contentEquals("x")  && (coordinate < frameInstance.getWidth()- width)
-                || coordinateName.contentEquals("y") && coordinate < frameInstance.getHeight());
+//        System.out.println("coordinate: " + Math.ceil(coordinate));
+//        System.out.println("width:" + Math.ceil(frameInstance.getWidth()));
+
+        return coordinate >= 0 && (coordinateName.contentEquals("x")  && (coordinate <= frameInstance.getWidth() - width)
+                || coordinateName.contentEquals("y") && coordinate <= frameInstance.getHeight());
     }
 
     public void moveLeft(){
         int newCoordinates = getX() - 10;
         if(areCoordinatesValid(newCoordinates, "x")){
-            setX(newCoordinates);
+            this.setX(newCoordinates);
         }
     }
 
     public void moveRight(){
         int newCoordinates = getX() + 10;
         if(areCoordinatesValid(newCoordinates, "x")){
-            setX(newCoordinates);
+            this.setX(newCoordinates);
         }
     }
 
@@ -69,6 +74,8 @@ public class Character extends Coordinates {
     public int getHeight(){
         return this.height;
     }
+
+
 
 
     public Image getProcessedImg(){
