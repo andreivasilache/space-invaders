@@ -1,23 +1,27 @@
+import entities.UIEntitiesENUM;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.List;
 
 // https://stackoverflow.com/questions/14432816/how-to-move-an-image-animation
 
 public class Animator extends JPanel {
-    Character[] toBeRendered;
+    private Core gameCore;
 
-    public Animator(Character[] toBeRendered){
-        this.toBeRendered = toBeRendered;
+    public Animator(Core gameCore){
+        this.gameCore = gameCore;
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        for(int i=0; i<this.toBeRendered.length; i++){
-            if(this.toBeRendered[i].isVisible){
-                g.drawImage(this.toBeRendered[i].getProcessedImg(), this.toBeRendered[i].getX(), this.toBeRendered[i].getY(), this.toBeRendered[i].getWidth(), this.toBeRendered[i].getHeight(), null);
-                repaint(this.toBeRendered[i].getX(), this.toBeRendered[i].getY(), this.toBeRendered[i].getWidth(), this.toBeRendered[i].getHeight());
+        List<Character> render = gameCore.getAllElementsToBeRendered();
+        for(int i=0; i<render.size(); i++){
+            if(render.get(i).isVisible){
+                g.drawImage(render.get(i).getProcessedImg(), render.get(i).getX(), render.get(i).getY(), render.get(i).getWidth(), render.get(i).getHeight(), null);
+                repaint(render.get(i).getX(), render.get(i).getY(), render.get(i).getWidth(), render.get(i).getHeight());
             }
         }
     }

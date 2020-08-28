@@ -1,5 +1,7 @@
 import entities.LevelsENUM;
 import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Enemies extends  Character {
     private int numberOfEnemies;
@@ -19,6 +21,7 @@ public class Enemies extends  Character {
     private int lastCompleteRowElementIndex = 0;
     private int firstCompleteRowElementIndex = 0;
 
+
     public Enemies(int width, int height, int numberOfEnemies, LevelsENUM.LEVELS level, JFrame frameInstance) {
         super(width, height, true, "assets/enemy.jpg");
 
@@ -26,33 +29,34 @@ public class Enemies extends  Character {
         this.numberOfEnemies = numberOfEnemies;
 
         this.level = level;
-
+        System.out.println(frameInstance);
         screenWidth = frameInstance.getWidth();
         screenHeight = frameInstance.getHeight();
         xInit = screenWidth * 1/4;
         yInit = screenHeight * 1/10;
     }
 
-    Character[] enemies = new Character[numberOfEnemies];
+    List<Character> enemies = new ArrayList<Character>();
 
-    public void initEnemies(Character[] uninitializedCharacters) {
+
+    public List<Character> initEnemies(int numberOfEnemies) {
 
         int currentX = xInit;
         int currentY = yInit;
 
-        this.enemies = uninitializedCharacters;
-
-        for(int i = 1; i<=numberOfEnemies; i++){
+        for(int i = 0; i<numberOfEnemies; i++){
             if(currentX > (screenWidth - xInit - getWidth())){
                 if(elementsPerRow == 0) elementsPerRow = i;
-                lastCompleteRowElementIndex += elementsPerRow - 1;
+                lastCompleteRowElementIndex += elementsPerRow;
 
                 currentX = xInit;
                 currentY += spaceBetween;
             }
-            uninitializedCharacters[i] = new Character(getWidth(), getHeight(), currentX , currentY, true, "assets/enemy.jpg", frameInstance, 1);
+            Character character = new Character(getWidth(), getHeight(), currentX , currentY, true, "assets/enemy.jpg", frameInstance, 1);
+            enemies.add(character);
             currentX += spaceBetween;
         }
+        lastCompleteRowElementIndex--;
 
         if(lastCompleteRowElementIndex == numberOfEnemies){
             firstCompleteRowElementIndex = lastCompleteRowElementIndex - elementsPerRow + 1;
@@ -60,24 +64,25 @@ public class Enemies extends  Character {
             firstCompleteRowElementIndex =  lastCompleteRowElementIndex+1;
         }
 
+        return this.enemies;
     }
 
     public void moveAllEnemies(){
-        for(int i = 1; i<=numberOfEnemies; i++){
+        for(int i = 0; i<numberOfEnemies; i++){
             if (isMovingToRight) {
-                if(!enemies[lastCompleteRowElementIndex].areCoordinatesValid(enemies[lastCompleteRowElementIndex].getX() + spaceBetween, "x")){
+                if(!enemies.get(lastCompleteRowElementIndex).areCoordinatesValid(enemies.get(lastCompleteRowElementIndex).getX() + spaceBetween, "x")){
                     isMovingToRight = !isMovingToRight;
                     break;
                 } else{
-                    enemies[i].moveRight();
+                    enemies.get(i).moveRight();
                 }
             } else {
-                if(!enemies[firstCompleteRowElementIndex].areCoordinatesValid(enemies[firstCompleteRowElementIndex].getX() - spaceBetween, "x")){
+                if(!enemies.get(firstCompleteRowElementIndex).areCoordinatesValid(enemies.get(firstCompleteRowElementIndex).getX() - spaceBetween, "x")){
                     isMovingToRight = !isMovingToRight;
-                    enemies[firstCompleteRowElementIndex].moveRight();
+                    enemies.get(firstCompleteRowElementIndex).moveRight();
                     break;
                 } else{
-                    enemies[i].moveLeft();
+                    enemies.get(i).moveLeft();
                 }
             }
         }

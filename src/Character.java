@@ -75,6 +75,10 @@ public class Character extends Coordinates {
         return this.height;
     }
 
+    public void setWidth(int width){
+        this.width = width;
+    }
+
 
 
 

@@ -1,45 +1,36 @@
-import entities.LevelsENUM;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+
 public class Main {
     public static void main(String[] args){
         JFrame frameInstance;
-
         int width = 850;
         int height = 600;
-        int entityWidth = 25;
-        int entityHeight = 25;
-        int numberOfEnemies = 55;
 
-        Character[] entities = new Character[numberOfEnemies + 1];
 
         BoardUI boardUI = new BoardUI("Space Invaders", width, height);
         boardUI.initBoard();
         frameInstance = boardUI.getFrame();
 
-        Enemies enemyBots = new Enemies(entityWidth, entityHeight, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance);
-
-        entities[0] = new Character(entityWidth, entityHeight, 500, 500, true, "assets/shooter.jpg", frameInstance, 3);
-        enemyBots.initEnemies(entities);
-
-        Animator animator = new Animator(entities);
+        Core gameCore = new Core(frameInstance);
+        gameCore.initAllElements();
+        Animator animator = new Animator(gameCore);
         frameInstance.add(animator);
         frameInstance.setVisible(true);
 
         Timer time = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                 enemyBots.moveAllEnemies();
+                gameCore.animateEnemieBots();
             }
         });
         time.start();
 
-        Character player = entities[0];
+        Character player = gameCore.getPlayer();
         frameInstance.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent event) {
