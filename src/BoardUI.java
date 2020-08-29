@@ -22,7 +22,7 @@ public class BoardUI extends JFrame {
 
 //        frame.add(gamePanel);
 //        frame.setBackground(Color.black);
-
+        frame.setResizable(false);
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class Character extends Coordinates {
     public int width, height;
@@ -13,8 +14,9 @@ public class Character extends Coordinates {
     private Image processedImg;
     private int lifes;
     boolean isVisible;
+    private List bulletsInstanceList;
 
-    public Character(int width, int height, int x, int y, boolean isVisible, String imgSource, JFrame frameInstance, int lifes){
+    public Character(int width, int height, int x, int y, boolean isVisible, String imgSource, JFrame frameInstance, int lifes, List bulletsInstanceList){
         super(x, y);
 
         this.width = width;
@@ -24,7 +26,12 @@ public class Character extends Coordinates {
         this.isVisible = isVisible;
         this.imgSource = imgSource;
         this.frameInstance = frameInstance;
+        this.bulletsInstanceList = bulletsInstanceList;
 
+        this.loadImage(imgSource);
+    }
+
+    private void loadImage(String imgSource){
         try{
             Image img = ImageIO.read(new File(imgSource));
             processedImg = img.getScaledInstance(width, height, Image.SCALE_DEFAULT);
@@ -43,6 +50,16 @@ public class Character extends Coordinates {
         this.imgSource = imgSource;
     }
 
+    public Character(int width, int height,int x, int y, boolean isVisible,  String imgSource){
+        // For bullet support.
+        super(x, y);
+        this.width = width;
+        this.height= height;
+        this.isVisible = isVisible;
+        this.imgSource = imgSource;
+        this.loadImage(imgSource);
+    }
+
     public boolean areCoordinatesValid(int coordinate, String coordinateName){
         return coordinate >= 0 && (coordinateName.contentEquals("x")  && (coordinate <= frameInstance.getWidth() - width)
                 || coordinateName.contentEquals("y") && coordinate <= frameInstance.getHeight());
@@ -53,6 +70,12 @@ public class Character extends Coordinates {
         if(areCoordinatesValid(newCoordinates, "x")){
             this.setX(newCoordinates);
         }
+    }
+
+    public void moveUP(){
+        System.out.println("Moved up!");
+        int newCoordinates = getY() - 10;
+            this.setY(newCoordinates);
     }
 
     public void moveRight(){
@@ -74,8 +97,10 @@ public class Character extends Coordinates {
         this.width = width;
     }
 
-
-
+    public void shoot(){
+        Character bullet = new Character( 10, 10, getX(), getY() - 10, true, "assets/bullet.png");
+        this.bulletsInstanceList.add(bullet);
+    }
 
     public Image getProcessedImg(){
         return this.processedImg;

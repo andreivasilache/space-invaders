@@ -21,12 +21,14 @@ public class Enemies extends  Character {
     private int lastCompleteRowElementIndex = 0;
     private int firstCompleteRowElementIndex = 0;
 
+    private List bulletsInstanceList;
 
-    public Enemies(int width, int height, int numberOfEnemies, LevelsENUM.LEVELS level, JFrame frameInstance) {
+    public Enemies(int width, int height, int numberOfEnemies, LevelsENUM.LEVELS level, JFrame frameInstance, List bulletsInstanceList) {
         super(width, height, true, "assets/enemy.jpg");
 
         this.frameInstance = frameInstance;
         this.numberOfEnemies = numberOfEnemies;
+        this.bulletsInstanceList = bulletsInstanceList;
 
         this.level = level;
         System.out.println(frameInstance);
@@ -52,7 +54,7 @@ public class Enemies extends  Character {
                 currentX = xInit;
                 currentY += spaceBetween;
             }
-            Character character = new Character(getWidth(), getHeight(), currentX , currentY, true, "assets/enemy.jpg", frameInstance, 1);
+            Character character = new Character(getWidth(), getHeight(), currentX , currentY, true, "assets/enemy.jpg", frameInstance, 1, this.bulletsInstanceList);
             enemies.add(character);
             currentX += spaceBetween;
         }

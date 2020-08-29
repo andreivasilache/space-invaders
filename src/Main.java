@@ -26,6 +26,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 gameCore.animateEnemieBots();
+                gameCore.animateBullets();
             }
         });
         time.start();
@@ -44,7 +45,7 @@ public class Main {
                     player.moveRight();
                 }
                 if (keyCode == event.VK_UP || keyCode == event.VK_W) {
-                    System.out.println("Up");
+                    player.shoot();
                 }
                 if (keyCode == event.VK_DOWN || keyCode == event.VK_S) {
                     System.out.println("Down");

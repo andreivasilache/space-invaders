@@ -21,6 +21,6 @@ public class Coordinates {
     }
 
     public void setY(int newValue){
-        this.y = y;
+        this.y = newValue;
     }
 }
