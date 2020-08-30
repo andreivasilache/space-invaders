@@ -9,18 +9,14 @@ public class Coordinates {
     }
 
     public int getX(){
-        return  this.x;
+        return this.x;
     }
 
-    public int getY(){
-        return this.y;
-    }
+    public int getY(){ return this.y; }
 
     public void setX(int newValue){
         this.x = newValue;
     }
 
-    public void setY(int newValue){
-        this.y = newValue;
-    }
+    public void setY(int newValue){ this.y = newValue; }
 }

@@ -2,6 +2,7 @@ import entities.LevelsENUM;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Enemies extends  Character {
     private int numberOfEnemies;
@@ -31,9 +32,10 @@ public class Enemies extends  Character {
         this.bulletsInstanceList = bulletsInstanceList;
 
         this.level = level;
-        System.out.println(frameInstance);
+
         screenWidth = frameInstance.getWidth();
         screenHeight = frameInstance.getHeight();
+
         xInit = screenWidth * 1/4;
         yInit = screenHeight * 1/10;
     }
@@ -69,7 +71,21 @@ public class Enemies extends  Character {
         return this.enemies;
     }
 
+    private Character getRandomCharacter(){
+        int toBeReturnedIndex = -1;
+        Random random = new Random();
+        while(toBeReturnedIndex == -1){
+            int localIndex = random.nextInt(enemies.size());
+            if(enemies.get(localIndex).isVisible) toBeReturnedIndex = localIndex;
+        }
+
+        return enemies.get(toBeReturnedIndex);
+    }
+
     public void moveAllEnemies(){
+        Character shootingEl = getRandomCharacter();
+        shootingEl.shoot(-1);
+
         for(int i = 0; i<numberOfEnemies; i++){
             if (isMovingToRight) {
                 if(!enemies.get(lastCompleteRowElementIndex).areCoordinatesValid(enemies.get(lastCompleteRowElementIndex).getX() + spaceBetween, "x")){

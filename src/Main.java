@@ -45,7 +45,7 @@ public class Main {
                     player.moveRight();
                 }
                 if (keyCode == event.VK_UP || keyCode == event.VK_W) {
-                    player.shoot();
+                    player.shoot(1);
                 }
                 if (keyCode == event.VK_DOWN || keyCode == event.VK_S) {
                     System.out.println("Down");

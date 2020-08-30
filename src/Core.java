@@ -14,14 +14,11 @@ public class Core {
 
     JFrame frameInstance;
 
-    HashMap<UIEntitiesENUM.ENTETIES, List<Character>> gameCore = new HashMap<UIEntitiesENUM.ENTETIES, List<Character>>();
+    HashMap<UIEntitiesENUM.ENTETIES, Object> gameCore = new HashMap<UIEntitiesENUM.ENTETIES, Object>();
     Enemies enemyBots;
 
     public Core(JFrame frameInstance){
         this.frameInstance = frameInstance;
-        List bulletsInstanceList = getBulletsList();
-
-        enemyBots = new Enemies(entityWidth, entityHeight, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance, bulletsInstanceList);
     }
 
     public void initAllElements(){
@@ -31,12 +28,12 @@ public class Core {
     }
 
     private void initBulletsList(){
-        List<Character> bullets = new ArrayList<>();
+        List<Bullet> bullets = new ArrayList<>();
         gameCore.put(UIEntitiesENUM.ENTETIES.BULLETS, bullets);
     }
 
     private  List getBulletsList(){
-        List<Character> bullets = gameCore.get(UIEntitiesENUM.ENTETIES.BULLETS);
+        List<Character> bullets = (List<Character>) gameCore.get(UIEntitiesENUM.ENTETIES.BULLETS);
         return bullets;
     }
 
@@ -49,6 +46,9 @@ public class Core {
     }
 
     private void initEnemies(){
+        List bulletsInstanceList = getBulletsList();
+        enemyBots = new Enemies(entityWidth, entityHeight, numberOfEnemies, LevelsENUM.LEVELS.LEVEL_ONE, frameInstance, bulletsInstanceList);
+
         List<Character> enemiesList = enemyBots.initEnemies(numberOfEnemies);
         gameCore.put(UIEntitiesENUM.ENTETIES.ENEMIES, enemiesList);
     }
@@ -58,21 +58,25 @@ public class Core {
     }
 
     public void animateBullets(){
-        List<Character> bullets = getBulletsList();
+        List<Bullet> bullets = getBulletsList();
         for (int i=0; i<bullets.size(); i++){
-            bullets.get(i).moveUP();
+            bullets.get(i).moveBullet();
         }
     }
 
+    private void isValidBullet(int x, int y){
+
+    }
+
     public Character getPlayer(){
-        return gameCore.get(UIEntitiesENUM.ENTETIES.PLAYER).get(0);
+        return ((List<Character>) gameCore.get(UIEntitiesENUM.ENTETIES.PLAYER)).get(0);
     }
 
     public List<Character> getAllElementsToBeRendered(){
         List<Character> toBeReturned = new ArrayList<>();
-        List<Character> players = gameCore.get(UIEntitiesENUM.ENTETIES.PLAYER);
-        List<Character> enemies = gameCore.get(UIEntitiesENUM.ENTETIES.ENEMIES);
-        List<Character> bullets = gameCore.get(UIEntitiesENUM.ENTETIES.BULLETS);
+        List<Character> players = (List<Character>) gameCore.get(UIEntitiesENUM.ENTETIES.PLAYER);
+        List<Character> enemies = (List<Character>) gameCore.get(UIEntitiesENUM.ENTETIES.ENEMIES);
+        List<Bullet> bullets = (List<Bullet>) gameCore.get(UIEntitiesENUM.ENTETIES.BULLETS);
 
         toBeReturned.addAll(players);
         toBeReturned.addAll(enemies);

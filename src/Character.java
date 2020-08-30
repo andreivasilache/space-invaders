@@ -97,8 +97,8 @@ public class Character extends Coordinates {
         this.width = width;
     }
 
-    public void shoot(){
-        Character bullet = new Character( 10, 10, getX(), getY() - 10, true, "assets/bullet.png");
+    public void shoot(int direction){
+        Bullet bullet = new Bullet (10, 10, getX(), getY() - 10, true, "assets/bullet.png", direction);
         this.bulletsInstanceList.add(bullet);
     }
 
